@@ -1,7 +1,6 @@
 <?php
 namespace siesta\infrastructure\user\persistence;
 
-use Illuminate\Database\Eloquent\Model;
 use siesta\domain\exception\user\UserRecordException;
 use siesta\domain\user\infrastructure\UserRecorder;
 use siesta\domain\user\User;
@@ -12,18 +11,8 @@ use siesta\domain\user\User;
  * Class EloquentUserRecorder
  * @package siesta\infrastructure\user\persistence
  */
-class EloquentUserRecorder extends Model implements UserRecorder
+class EloquentUserRecorder extends EloquentUserRepository implements UserRecorder
 {
-
-    private const TABLE_NAME = 'user';
-    private const FILLABLE_FIELDS = ['email', 'password', 'salt'];
-
-    public function __construct()
-    {
-        $this->fillable = self::FILLABLE_FIELDS;
-        $this->table = self::TABLE_NAME;
-        parent::__construct([]);
-    }
 
     /**
      * @param User $user
