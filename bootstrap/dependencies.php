@@ -28,4 +28,5 @@ $app->bind(\siesta\domain\movie\infrastructure\MovieRecorder::class, \siesta\inf
 $app->bind(\siesta\domain\movie\infrastructure\MovieProvider::class, \siesta\infrastructure\movie\persistence\EloquentMovieProvider::class);
 $app->bind(\siesta\infrastructure\vote\persistence\ScoreTransformer::class, \siesta\infrastructure\vote\persistence\EloquentScoreTransformer::class);
 $app->bind(\siesta\domain\vote\infrastructure\VoteRecorder::class, \siesta\infrastructure\vote\persistence\EloquentVoteRecorder::class);
+$app->bind(\siesta\domain\user\infrastructure\UserRecorder::class, \siesta\infrastructure\user\persistence\EloquentUserRecorder::class);
 $app->bind(\siesta\domain\vote\infrastructure\VoteProvider::class, \siesta\infrastructure\vote\persistence\EloquentVoteProvider::class);
