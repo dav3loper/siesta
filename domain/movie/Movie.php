@@ -21,6 +21,8 @@ class Movie
     private $_id;
     /** @var Vote */
     private $_vote;
+    /** @var int */
+    private $_filmFestivalId;
 
     /**
      * @param int $movieId
@@ -174,5 +176,21 @@ class Movie
         }
 
         return [];
+    }
+
+    /**
+     * @param int $getFilmFestivalId
+     */
+    public function setFilmFestivalId(int $getFilmFestivalId): void
+    {
+        $this->_filmFestivalId = $getFilmFestivalId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFilmFestivalId(): int
+    {
+        return $this->_filmFestivalId;
     }
 }
