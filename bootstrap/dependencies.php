@@ -6,7 +6,7 @@ $app = app();
  * USECASES
  **************************************/
 $app->bind(\siesta\application\movie\usecases\StoreMovieHandler::class, \siesta\application\movie\usecases\StoreMovieHandler::class);
-$app->bind(\siesta\domain\extraction\MovieExtractor::class, \App\UseCases\ExtractMovieList\SitgesWeb2018MovieExtractor::class);
+$app->bind(\siesta\domain\extraction\MovieExtractor::class, \App\UseCases\ExtractMovieList\SitgesWeb2019MovieExtractor::class);
 
 /***************************************
  * HELPERS
