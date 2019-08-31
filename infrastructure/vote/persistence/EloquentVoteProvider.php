@@ -47,7 +47,7 @@ class EloquentVoteProvider extends Model implements VoteProvider
         try {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var EloquentVoteProvider $mapping */
-            $mapping = self::where(self::ID, '=', $id)->firstOrFail();
+            $mapping = self::where(self::MOVIE_ID, '=', $id)->firstOrFail();
 
             return $this->_getVoteFromMapping($mapping->getAttributes());
         } catch (ModelNotFoundException $e) {
