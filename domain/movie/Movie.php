@@ -23,6 +23,8 @@ class Movie
     private $_vote;
     /** @var int */
     private $_filmFestivalId;
+    /** @var string */
+    private $_comments;
 
     /**
      * @param int $movieId
@@ -39,7 +41,7 @@ class Movie
     /**
      * @return int
      */
-    public function getDuration(): int
+    public function getDuration()
     {
         return $this->_duration;
     }
@@ -59,7 +61,7 @@ class Movie
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->_title;
     }
@@ -75,7 +77,7 @@ class Movie
     /**
      * @return string
      */
-    public function getPoster(): string
+    public function getPoster()
     {
         return $this->_poster;
     }
@@ -91,7 +93,7 @@ class Movie
     /**
      * @return string
      */
-    public function getSummary(): string
+    public function getSummary()
     {
         return $this->_summary;
     }
@@ -107,7 +109,7 @@ class Movie
     /**
      * @return string
      */
-    public function getTrailerId(): string
+    public function getTrailerId()
     {
         return $this->_trailerId;
     }
@@ -131,13 +133,14 @@ class Movie
             'trailer' => $this->_trailerId,
             'duration' => $this->_duration,
             'summary' => $this->_summary,
+            'comments' => $this->_comments
         ];
     }
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->_id;
     }
@@ -153,7 +156,7 @@ class Movie
     /**
      * @return Vote
      */
-    public function getVote(): Vote
+    public function getVote()
     {
         return $this->_vote;
     }
@@ -189,8 +192,24 @@ class Movie
     /**
      * @return int
      */
-    public function getFilmFestivalId(): int
+    public function getFilmFestivalId()
     {
         return $this->_filmFestivalId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComments()
+    {
+        return $this->_comments;
+    }
+
+    /**
+     * @param string $_comments
+     */
+    public function setComments(string $_comments): void
+    {
+        $this->_comments = $_comments;
     }
 }
