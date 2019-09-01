@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Presentation\FilmFestivalListDecorator;
+use siesta\application\home\DashboardUserHandler;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $handler = app()->make(DashboardUserHandler::class);
+        $filmFestivalList = $handler->execute();
+
+        return view('home', ['decorator' => new FilmFestivalListDecorator($filmFestivalList)]);
     }
 }
