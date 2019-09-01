@@ -70,7 +70,7 @@ class MovieController extends SiestaController
             $command = new VoteMovieCommand();
             $command->setId($id);
             $command->setIndividualVote($request->all());
-            $command->setComments($request->input('movie_comments'));
+            $command->setComments($request->input('movie_comments', ''));
 
             /** @var VoteMovieHandler $handler */
             $handler = app()->make(VoteMovieHandler::class);
