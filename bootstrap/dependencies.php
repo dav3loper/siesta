@@ -31,3 +31,4 @@ $app->bind(\siesta\domain\vote\infrastructure\VoteRecorder::class, \siesta\infra
 $app->bind(\siesta\domain\user\infrastructure\UserRecorder::class, \siesta\infrastructure\user\persistence\EloquentUserRecorder::class);
 $app->bind(\siesta\domain\vote\infrastructure\VoteProvider::class, \siesta\infrastructure\vote\persistence\EloquentVoteProvider::class);
 $app->bind(\siesta\domain\user\infrastructure\UserProvider::class, \siesta\infrastructure\user\persistence\EloquentUserProvider::class);
+$app->bind(\siesta\domain\festival\infrastructure\FilmFestivalProvider::class, \siesta\infrastructure\festival\persistence\EloquentFilmFestivalProvider::class);
