@@ -24,7 +24,7 @@ class Movie
     /** @var int */
     private $_filmFestivalId;
     /** @var string */
-    private $_comments;
+    private $_comments = '';
 
     /**
      * @param int $movieId
