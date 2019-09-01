@@ -48,11 +48,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        return Validator::make($data,
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            [
+                'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
+                'password.confirmed' => 'La contraseña de confirmación no coincide.',
+                'email.email' => 'El campo no tiene formato de email.',
+            ]
+        );
     }
 
     /**
