@@ -16,7 +16,7 @@ class AddCommentsTableMovie extends Migration
         try {
             DB::beginTransaction();
             Schema::table('movie', function (Blueprint $table) {
-                $table->string('comments')->after('summary');
+                $table->string('comments')->nullable()->after('summary');
             });
 
             DB::commit();
