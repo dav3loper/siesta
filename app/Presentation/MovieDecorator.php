@@ -2,6 +2,7 @@
 namespace App\Presentation;
 
 use siesta\domain\movie\Movie;
+use siesta\domain\vote\NonScore;
 use siesta\domain\vote\Score;
 use siesta\domain\vote\StrongScore;
 use siesta\domain\vote\WeakScore;
@@ -63,12 +64,29 @@ class MovieDecorator
     }
 
     /**
+     * @return string
+     */
+    public function getComments(): string
+    {
+        return $this->_movie->getComments();
+    }
+
+    /**
      * @param int $id
      * @return string
      */
     public function isWeakScore($id): string
     {
         return $this->_isScore($id, WeakScore::get());
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function isNoScore($id): string
+    {
+        return $this->_isScore($id, NonScore::get());
     }
 
     /**

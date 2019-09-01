@@ -114,6 +114,9 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
     {
         $rawTextList = $this->_htmlParser->getElementsByClass($link, 'fa-hourglass-start');
         $rawText = current($rawTextList);
+        if (!$rawText) {
+            return 999;
+        }
 
         $duration = intval(trim($rawText->nextSibling()->text()));
         if ($duration != 0 && $duration < 60) {

@@ -29,11 +29,15 @@
             </div>
         </div>
         <br/>
-        <div class="row margin-top-20">
-            <div class="col-md-6 col-sm-6 col-xs-6"></div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <h2><i class="material-icons">thumb_up</i> Votaciones</h2>
-                <form method="post">
+        <form method="post">
+            <div class="row margin-top-20">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <h2><i class="material-icons">sms</i> Comentarios</h2>
+                    <textarea rows="4" cols="50" name="movie_comments" id="movie_comments_id">{{ $movie->getComments()}}</textarea>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <h2><i class="material-icons">thumb_up</i> Votaciones</h2>
+
                     {{ csrf_field() }}
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -44,7 +48,10 @@
                     <span><strong><?php echo $users[$i]?></strong></span>
                     <fieldset class="margin-left-15">
                         <label>
-                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="0" checked>&nbsp;No querer
+                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="-1" checked>&nbsp;Sin votar
+                        </label>
+                        <label>
+                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="0" {{$movie->isNoScore($i)}}>&nbsp;No querer
                         </label>
                         <label>
                             <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="1" {{$movie->isWeakScore($i)}}>&nbsp;Podría verla
@@ -55,9 +62,10 @@
                     </fieldset>
                     <?php endfor; ?>
                     <button type="submit" class="margin-top-10">Enviar voto!</button>
-                </form>
+
+                </div>
             </div>
-        </div>
+        </form>
         <div class="row margin-top-30">
             <div class="col-md-12 col-sm-12 col-xs-12">
 

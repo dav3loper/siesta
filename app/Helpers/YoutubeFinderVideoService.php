@@ -35,7 +35,7 @@ class YoutubeFinderVideoService implements FinderVideoService
 
             return $firstVideo->getId()->getVideoId();
         } catch (\Exception $e) {
-            return '';
+            return 'notrailer';
         }
     }
 
