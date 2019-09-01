@@ -9,6 +9,8 @@ class VoteMovieCommand
     private $_id;
     /** @var array */
     private $_individualVotes;
+    /** @var string */
+    private $_comments;
 
     public function __construct()
     {
@@ -51,5 +53,18 @@ class VoteMovieCommand
     public function getIndividualVotes(): array
     {
         return $this->_individualVotes;
+    }
+
+    public function setComments($input): void
+    {
+        $this->_comments = $input;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComments(): string
+    {
+        return $this->_comments;
     }
 }
