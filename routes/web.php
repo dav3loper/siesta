@@ -12,18 +12,24 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+    return redirect('/home');
 });
 
-Route::get('/home', function () {
-    echo "bieeeen";
+
+//Route::post('/movie-create', 'MovieController@create');
+
+
+// Rutas de login y registro
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+// Authorized routs
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/list', 'VoteController@listVotes');
+
+    // votaciones
+    Route::get('/movie/{id}', 'MovieController@show');
+    Route::post('/movie/{id}', 'MovieController@vote');
 });
-
-Route::get('/list', 'VoteController@listVotes');
-
-Route::post('/movie-create', 'MovieController@create');
-
-Route::get('/movie/{id}', 'MovieController@show');
-
-Route::post('/movie/{id}', 'MovieController@vote');
-

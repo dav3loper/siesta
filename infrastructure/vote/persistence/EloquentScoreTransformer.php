@@ -3,6 +3,7 @@ namespace siesta\infrastructure\vote\persistence;
 
 use siesta\domain\exception\vote\VoteInvalidTypeException;
 use siesta\domain\vote\NonScore;
+use siesta\domain\vote\NoVoted;
 use siesta\domain\vote\Score;
 use siesta\domain\vote\StrongScore;
 use siesta\domain\vote\WeakScore;
@@ -15,6 +16,7 @@ class EloquentScoreTransformer implements ScoreTransformer
 {
 
     private const TRANSFORMATIONS = [
+        NoVoted::class => -1,
         NonScore::class => 0,
         WeakScore::class => 1,
         StrongScore::class => 2,

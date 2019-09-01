@@ -13,6 +13,8 @@ class StoreMovieCommand
     private $_duration;
     /** @var string */
     private $_trailer;
+    /** @var int */
+    private $_filmFestivalId;
 
     /**
      * StoreMovieCommand constructor.
@@ -89,6 +91,22 @@ class StoreMovieCommand
     public function getTrailer(): string
     {
         return $this->_trailer;
+    }
+
+    /**
+     * @param int $filmFestivalId
+     */
+    public function setFilmFestivalId(int $filmFestivalId)
+    {
+        $this->_filmFestivalId = $filmFestivalId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFilmFestivalId(): int
+    {
+        return $this->_filmFestivalId;
     }
 
 

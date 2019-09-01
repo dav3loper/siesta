@@ -3,6 +3,7 @@ namespace siesta\application\movie\usecases;
 
 use siesta\domain\exception\vote\VoteInvalidTypeException;
 use siesta\domain\vote\NonScore;
+use siesta\domain\vote\NoVoted;
 use siesta\domain\vote\Score;
 use siesta\domain\vote\StrongScore;
 use siesta\domain\vote\WeakScore;
@@ -10,6 +11,7 @@ use siesta\domain\vote\WeakScore;
 class VoteTransformer
 {
     private const TRANSFORMATIONS = [
+        '-1' => NoVoted::class,
         '0' => NonScore::class,
         '1' => WeakScore::class,
         '2' => StrongScore::class,

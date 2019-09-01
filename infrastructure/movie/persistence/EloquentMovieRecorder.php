@@ -14,7 +14,7 @@ use siesta\domain\movie\Movie;
 class EloquentMovieRecorder extends Model implements MovieRecorder
 {
     private const TABLE_NAME = 'movie';
-    private const FILLABLE_FIELDS = [self::TITLE, 'poster', 'trailer_id', 'duration', 'summary'];
+    private const FILLABLE_FIELDS = [self::TITLE, 'poster', 'trailer_id', 'duration', 'summary', 'comments', 'film_festival_id'];
     private const TITLE = 'title';
 
     /**
@@ -45,19 +45,34 @@ class EloquentMovieRecorder extends Model implements MovieRecorder
         }
     }
 
+    public function updateMovie(Movie $movie): void
+    {
+        try {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $movieStored = self::where('id', '=', $movie->getId())->firstOrFail();
+            $movieStored->update($this->_getFillableFields($movie));
+        } catch (ModelNotFoundException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            throw new MovieRecordException($e);
+        }
+    }
+
     /**
      * @param Movie $movie
      * @return array
      */
     private function _getFillableFields(Movie $movie): array
     {
-        return array_combine($this->fillable, [
+        return array_filter(array_combine($this->fillable, [
             $movie->getTitle(),
             $movie->getPoster(),
             $movie->getTrailerId(),
             $movie->getDuration(),
-            $movie->getSummary()
+            $movie->getSummary(),
+            $movie->getComments(),
+            $movie->getFilmFestivalId()
 
-        ]);
+        ]));
     }
 }

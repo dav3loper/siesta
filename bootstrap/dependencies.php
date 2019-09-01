@@ -6,7 +6,7 @@ $app = app();
  * USECASES
  **************************************/
 $app->bind(\siesta\application\movie\usecases\StoreMovieHandler::class, \siesta\application\movie\usecases\StoreMovieHandler::class);
-$app->bind(\siesta\domain\extraction\MovieExtractor::class, \App\UseCases\ExtractMovieList\SitgesWeb2018MovieExtractor::class);
+$app->bind(\siesta\domain\extraction\MovieExtractor::class, \App\UseCases\ExtractMovieList\SitgesWeb2019MovieExtractor::class);
 
 /***************************************
  * HELPERS
@@ -28,4 +28,7 @@ $app->bind(\siesta\domain\movie\infrastructure\MovieRecorder::class, \siesta\inf
 $app->bind(\siesta\domain\movie\infrastructure\MovieProvider::class, \siesta\infrastructure\movie\persistence\EloquentMovieProvider::class);
 $app->bind(\siesta\infrastructure\vote\persistence\ScoreTransformer::class, \siesta\infrastructure\vote\persistence\EloquentScoreTransformer::class);
 $app->bind(\siesta\domain\vote\infrastructure\VoteRecorder::class, \siesta\infrastructure\vote\persistence\EloquentVoteRecorder::class);
+$app->bind(\siesta\domain\user\infrastructure\UserRecorder::class, \siesta\infrastructure\user\persistence\EloquentUserRecorder::class);
 $app->bind(\siesta\domain\vote\infrastructure\VoteProvider::class, \siesta\infrastructure\vote\persistence\EloquentVoteProvider::class);
+$app->bind(\siesta\domain\user\infrastructure\UserProvider::class, \siesta\infrastructure\user\persistence\EloquentUserProvider::class);
+$app->bind(\siesta\domain\festival\infrastructure\FilmFestivalProvider::class, \siesta\infrastructure\festival\persistence\EloquentFilmFestivalProvider::class);

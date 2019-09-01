@@ -47,6 +47,8 @@ class InsertSitgesFilms extends Command
         $statusBar->display();
         foreach ($movieList as $movie) {
             $command = StoreMovieCommand::buildFromMovie($movie);
+            //TODO: guarreria molaria sacarlo a un model q obtuviera datos
+            $command->setFilmFestivalId(2);
             $this->_useCase->execute($command);
 
             $statusBar->advance();
