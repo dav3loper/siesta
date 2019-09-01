@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p>
-                        {{date('Y')}} &copy; All Rights Reserved
+                        {{date('Y')}} &copy; Todos los derechos reservados
                     </p>
                 </div>
             </div>

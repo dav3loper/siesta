@@ -12,12 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('login');
+    return redirect('/home');
 });
 
-Route::get('/home', function () {
-    echo "bieeeen";
-});
 
 Route::get('/list', 'VoteController@listVotes');
 
@@ -27,3 +24,7 @@ Route::get('/movie/{id}', 'MovieController@show');
 
 Route::post('/movie/{id}', 'MovieController@vote');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
