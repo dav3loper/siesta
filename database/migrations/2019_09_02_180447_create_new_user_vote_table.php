@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use siesta\domain\vote\Vote;
 
 class CreateNewUserVoteTable extends Migration
 {
@@ -21,7 +20,7 @@ class CreateNewUserVoteTable extends Migration
                 $table->increments('id');
                 $table->integer('user_id');
                 $table->integer('movie_id');
-                $table->enum('score', [Vote::NO_SCORE, Vote::WEAK_SCORE, Vote::STRONG_SCORE]);
+                $table->integer('score');
                 $table->timestamps();
             });
 
