@@ -1,7 +1,6 @@
 <?php
 namespace siesta\domain\user\infrastructure;
 
-use siesta\domain\exception\user\UserNotFoundException;
 use siesta\domain\user\User;
 
 /**
@@ -10,10 +9,9 @@ use siesta\domain\user\User;
  */
 interface UserProvider
 {
+
     /**
-     * @param string $email
-     * @return User
-     * @throws UserNotFoundException
+     * @return User[]
      */
-    public function byEmail(string $email): User;
+    public function findAll(): array;
 }

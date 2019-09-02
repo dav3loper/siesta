@@ -6,11 +6,9 @@ class User
     /** @var string */
     private $email;
     /** @var string */
-    private $password;
-    /** @var string */
-    private $salt;
-    /** @var string */
     private $id;
+    /** @var string */
+    private $_name;
 
     /**
      * @param int $id
@@ -42,41 +40,36 @@ class User
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
 
     /**
-     * @param string $password
-     * @return User
+     * @param string $name
+     * @return $this
      */
-    public function setPassword(string $password): User
+    public function setName($name)
     {
-        $this->password = $password;
+        $this->_name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSalt(): string
+    public static function build()
     {
-        return $this->salt;
+        return new self;
     }
 
     /**
-     * @param string $salt
-     * @return User
+     * @return string
      */
-    public function setSalt(string $salt): User
+    public function getName(): string
     {
-        $this->salt = $salt;
+        return $this->_name;
+    }
 
-        return $this;
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
     }
 }
