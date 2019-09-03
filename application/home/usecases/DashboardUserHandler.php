@@ -1,7 +1,7 @@
 <?php
-namespace siesta\application\home;
+namespace siesta\application\home\usecases;
 
-use siesta\application\movie\usecases\response\DashboardUserResponse;
+use siesta\application\home\usecases\response\DashboardUserResponse;
 use siesta\domain\exception\vote\VoteNotFoundException;
 use siesta\domain\festival\infrastructure\FilmFestivalProvider;
 use siesta\domain\vote\infrastructure\VoteProvider;

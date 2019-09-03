@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Presentation\FilmFestivalListDecorator;
 use Illuminate\Support\Facades\Auth;
-use siesta\application\home\DashboardUserHandler;
+use siesta\application\home\usecases\DashboardUserHandler;
 
 class HomeController extends Controller
 {

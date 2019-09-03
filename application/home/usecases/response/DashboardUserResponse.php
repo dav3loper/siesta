@@ -1,5 +1,5 @@
 <?php
-namespace siesta\application\movie\usecases\response;
+namespace siesta\application\home\usecases\response;
 
 use siesta\domain\festival\FilmFestival;
 

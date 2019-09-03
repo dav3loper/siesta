@@ -2,7 +2,7 @@
 namespace App\Presentation;
 
 use App\Helpers\UrlGenerator;
-use siesta\application\movie\usecases\response\DashboardUserResponse;
+use siesta\application\home\usecases\response\DashboardUserResponse;
 use siesta\domain\festival\FilmFestival;
 
 class FilmFestivalListDecorator implements \Iterator
