@@ -6,10 +6,6 @@ use siesta\domain\movie\Movie;
 class Vote
 {
 
-    public const STRONG_SCORE = 2;
-    public const WEAK_SCORE = 1;
-    public const NO_SCORE = 0;
-
     /** @var IndividualVote[] */
     private $_individualVoteList;
     /** @var Movie */
