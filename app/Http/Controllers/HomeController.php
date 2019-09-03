@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Presentation\FilmFestivalListDecorator;
+use Illuminate\Support\Facades\Auth;
 use siesta\application\home\DashboardUserHandler;
 
 class HomeController extends Controller
@@ -25,8 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $handler = app()->make(DashboardUserHandler::class);
-        $filmFestivalList = $handler->execute();
+        $dashBoardResponse = $handler->execute(Auth::user()->id);
 
-        return view('home', ['decorator' => new FilmFestivalListDecorator($filmFestivalList)]);
+        return view('home', ['decorator' => new FilmFestivalListDecorator($dashBoardResponse)]);
     }
 }

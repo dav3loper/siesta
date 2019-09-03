@@ -1,6 +1,8 @@
 <?php
 namespace App\Presentation;
 
+use App\Helpers\UrlGenerator;
+use siesta\application\movie\usecases\response\DashboardUserResponse;
 use siesta\domain\festival\FilmFestival;
 
 class FilmFestivalListDecorator implements \Iterator
@@ -26,20 +28,29 @@ class FilmFestivalListDecorator implements \Iterator
     private $_filmFestivalList;
     /** @var int */
     private $_current;
+    /** @var array */
+    private $_lastVotedFilmPerFestival;
 
     /**
      * FilmFestivalListDecorator constructor.
-     * @param $filmFestivalList
+     * @param DashboardUserResponse $dashBoardResponse
      */
-    public function __construct($filmFestivalList)
+    public function __construct($dashBoardResponse)
     {
-        $this->_filmFestivalList = $filmFestivalList;
+        $this->_filmFestivalList = $dashBoardResponse->getFilmFestivalList();
+        $this->_lastVotedFilmPerFestival = $dashBoardResponse->getLastVotedFilmPerFestival();
         $this->_current = 0;
     }
 
-    public function getCurrentFestival()
-    {
 
+    public function getNextMovieToVote()
+    {
+        $lastVotedFilm = 1;
+        if (array_key_exists($this->_current, $this->_lastVotedFilmPerFestival)) {
+            $lastVotedFilm = $this->_lastVotedFilmPerFestival[$this->_current] + 1;
+        }
+
+        return UrlGenerator::getShowMovie($lastVotedFilm);
     }
 
     /**

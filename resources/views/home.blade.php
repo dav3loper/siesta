@@ -23,7 +23,7 @@
                                 <p class="card-text">{{$filmFestival->getName()}}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Votar</button>
+                                        <a href="{{$decorator->getNextMovieToVote()}}" type="button" class="btn btn-sm btn-outline-secondary">Votar</a>
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Ver horario</button>
                                     </div>
                                     <small class="text-muted">{{$decorator->getCurrentDuration()}}</small>

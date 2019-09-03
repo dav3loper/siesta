@@ -1,30 +1,46 @@
 <?php
 namespace siesta\application\home;
 
-use siesta\domain\festival\FilmFestival;
+use siesta\application\movie\usecases\response\DashboardUserResponse;
+use siesta\domain\exception\vote\VoteNotFoundException;
 use siesta\domain\festival\infrastructure\FilmFestivalProvider;
+use siesta\domain\vote\infrastructure\VoteProvider;
 
 class DashboardUserHandler
 {
-    /**
-     * @var FilmFestivalProvider
-     */
+    /** @var FilmFestivalProvider */
     private $_festivalProvider;
+    /** @var VoteProvider */
+    private $_voteProvider;
 
     /**
      * DashboardUserHandler constructor.
      * @param FilmFestivalProvider $festivalProvider
+     * @param VoteProvider $voteProvider
      */
-    public function __construct(FilmFestivalProvider $festivalProvider)
+    public function __construct(FilmFestivalProvider $festivalProvider, VoteProvider $voteProvider)
     {
         $this->_festivalProvider = $festivalProvider;
+        $this->_voteProvider = $voteProvider;
     }
 
     /**
-     * @return FilmFestival[]
+     * @return DashboardUserResponse
      */
-    public function execute(): array
+    public function execute($userId): DashboardUserResponse
     {
-        return $this->_festivalProvider->getAll();
+        $festivalList = $this->_festivalProvider->getAll();
+        $lastFilmVotedPerFestival = [];
+        foreach ($festivalList as $festival) {
+            try {
+                $vote = $this->_voteProvider->getLastVoteByFilmFestivalIdAndUserId($festival->getId(), $userId);
+            } catch (VoteNotFoundException $e) {
+                continue;
+            }
+            $lastFilmVotedPerFestival[$festival->getId()] = $vote->getMovieId();
+        }
+
+        return new DashboardUserResponse($festivalList, $lastFilmVotedPerFestival);
+
     }
 }
