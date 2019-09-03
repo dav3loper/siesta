@@ -114,4 +114,25 @@ class EloquentUserVoteProvider extends Model implements VoteProvider
             return $totalScoreA < $totalScoreB ? 1 : -1;
         };
     }
+
+    /**
+     * @param int $filmFestivalId
+     * @param int $userId
+     * @return Vote
+     * @throws VoteNotFoundException
+     */
+    public function getLastVoteByFilmFestivalIdAndUserId($filmFestivalId, $userId): Vote
+    {
+        //TODO: se pueden usar relaciones?
+        $mapping = self::join('movie', 'movie_id', '=', 'movie.id')
+            ->where('user_vote.user_id', '=', $userId)
+            ->where('movie.film_festival_id', '=', $filmFestivalId)
+            ->latest('user_vote.created_at')
+            ->first();
+        if ($mapping === null) {
+            throw new VoteNotFoundException();
+        }
+
+        return $this->_getVoteFromMapping([$mapping], $mapping->id);
+    }
 }

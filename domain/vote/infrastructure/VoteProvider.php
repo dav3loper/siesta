@@ -17,4 +17,11 @@ interface VoteProvider
      * @return Vote[]
      */
     public function getVotesOrderedByScore(): array;
+
+    /**
+     * @param int $filmFestivalId
+     * @param int $userId
+     * @return Vote
+     */
+    public function getLastVoteByFilmFestivalIdAndUserId($filmFestivalId, $userId): Vote;
 }
