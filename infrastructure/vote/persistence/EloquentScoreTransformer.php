@@ -16,6 +16,7 @@ class EloquentScoreTransformer implements ScoreTransformer
 {
 
     private const TRANSFORMATIONS = [
+        //TODO: Habria q borrar este -1 cuando no este en BD
         NoVoted::class => -1,
         NonScore::class => 0,
         WeakScore::class => 1,

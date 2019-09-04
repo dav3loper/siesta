@@ -1,51 +1,55 @@
 <?php
 namespace siesta\infrastructure\user\persistence;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use siesta\domain\exception\user\UserNotFoundException;
 use siesta\domain\user\infrastructure\UserProvider;
 use siesta\domain\user\User;
 
-/**
- * Class EloquentUserProvider
- * @package siesta\infrastructure\user\persistence
- */
-class EloquentUserProvider extends EloquentUserRepository implements UserProvider
-{
 
+class EloquentUserProvider extends Model implements UserProvider
+{
+    protected const TABLE_NAME = 'users';
 
     /**
-     * @param string $email
-     * @return User
-     * @throws UserNotFoundException
+     * EloquentUserProvider constructor.
+     * @param array $attributes
      */
-    public function byEmail(string $email): User
+    public function __construct(array $attributes = [])
+    {
+        $this->table = self::TABLE_NAME;
+        parent::__construct($attributes);
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findAll(): array
     {
         try {
-            /** @noinspection PhpUndefinedMethodInspection */
-            /** @var EloquentUserProvider $mapping */
-            $mapping = self::where(self::EMAIL, '=', $email)->firstOrFail();
+            $mappingList = self::all();
 
-            return $this->_getUserFromMapping($mapping->getAttributes());
+            return $this->_fromMappingToDomain($mappingList);
         } catch (ModelNotFoundException $e) {
-            throw new UserNotFoundException($e);
+            return [];
         }
     }
 
     /**
-     * @param array $attributes
-     * @return User
+     * @param $mappingList
+     * @return User[]
      */
-    private function _getUserFromMapping(array $attributes): User
+    private function _fromMappingToDomain($mappingList): array
     {
-        $fields = self::FILLABLE_FIELDS;
-        $fields[] = self::ID;
-        $user = new User();
-        $user->setEmail($attributes[self::EMAIL]);
-        $user->setPassword($attributes[self::PASSWORD]);
-        $user->setSalt($attributes[self::SALT]);
-        $user->setId($attributes[self::ID]);
+        $userList = [];
+        foreach ($mappingList as $mapping) {
+            $user = User::build()
+                ->setId($mapping->id)
+                ->setEmail($mapping->email)
+                ->setName($mapping->name);
+            $userList[] = $user;
+        }
 
-        return $user;
+        return $userList;
     }
 }

@@ -5,6 +5,7 @@ use siesta\domain\movie\Movie;
 
 class Vote
 {
+
     /** @var IndividualVote[] */
     private $_individualVoteList;
     /** @var Movie */

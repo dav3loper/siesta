@@ -42,13 +42,12 @@ class MovieController extends SiestaController
 
             /** @var ObtainMovieHandler $handler */
             $handler = app()->make(ObtainMovieHandler::class);
-            $movie = $handler->execute($command);
+            $response = $handler->execute($command);
         } catch (MovieNotFoundException $e) {
             return view('404');
         }
 
-        //FIXME: sacar a estatica o a env los users
-        return view('movies.index', ['movie' => new MovieDecorator($movie), 'users' => ['David', 'Sandra', 'Unai', 'Leticia', 'Mario']]);
+        return view('movies.index', ['movie' => new MovieDecorator($response->getMovie()), 'users' => $response->getUserList()]);
     }
 
     /**
@@ -59,14 +58,14 @@ class MovieController extends SiestaController
     public function vote(Request $request, $id)
     {
         if ($request->isMethod('post')) {
-            $request->validate([
-                //FIXME: sacar a estatica o a env los users
-                'user_0' => 'required',
-                'user_1' => 'required',
-                'user_2' => 'required',
-                'user_3' => 'required',
-                'user_4' => 'required',
-            ]);
+//            $request->validate([
+//                //FIXME: sacar a estatica o a env los users
+//                'user_0' => 'required',
+//                'user_1' => 'required',
+//                'user_2' => 'required',
+//                'user_3' => 'required',
+//                'user_4' => 'required',
+//            ]);
             $command = new VoteMovieCommand();
             $command->setId($id);
             $command->setIndividualVote($request->all());

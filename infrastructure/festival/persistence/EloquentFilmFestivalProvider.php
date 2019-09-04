@@ -52,6 +52,7 @@ class EloquentFilmFestivalProvider extends Model implements FilmFestivalProvider
             $filmFestival->setEdition($mapping->edition);
             $filmFestival->setStartsAt(new \DateTime($mapping->starts_at));
             $filmFestival->setEndsAt(new \DateTime($mapping->ends_at));
+            $filmFestival->setId($mapping->id);
             $filmFestivalList[] = $filmFestival;
         }
 
