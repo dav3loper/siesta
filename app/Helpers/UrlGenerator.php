@@ -18,6 +18,6 @@ class UrlGenerator
      */
     public static function getShowMovie($id): string
     {
-        return '/siesta/public/movie/' . $id;
+        return 'movie/' . $id;
     }
 }

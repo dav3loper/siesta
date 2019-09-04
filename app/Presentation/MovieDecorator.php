@@ -97,7 +97,7 @@ class MovieDecorator
     private function _isScore($id, Score $score): string
     {
         foreach ($this->_movie->getIndividualVoteList() as $individualVote) {
-            if ($individualVote->getUserId() === $id &&
+            if ($individualVote->getUserId() == $id &&
                 $individualVote->getScore() === $score) {
                 return 'checked';
             }

@@ -15,7 +15,7 @@ $app->bind(\siesta\infrastructure\movie\http\HtmlParser::class, \siesta\infrastr
 $app->bind(\App\Helpers\FinderVideoService::class, function ($app) {
     $googleClient = new Google_Client();
     $googleClient->setApplicationName(env('GOOGLE_APP_NAME'));
-    $googleClient->setDeveloperKey(env("GOOGLE_APP_KEY"));
+    $googleClient->setDeveloperKey(env('GOOGLE_APP_KEY'));
     $videoService = new Google_Service_YouTube($googleClient);
 
     return new \App\Helpers\YoutubeFinderVideoService($videoService);
@@ -27,8 +27,7 @@ $app->bind(\App\Helpers\FinderVideoService::class, function ($app) {
 $app->bind(\siesta\domain\movie\infrastructure\MovieRecorder::class, \siesta\infrastructure\movie\persistence\EloquentMovieRecorder::class);
 $app->bind(\siesta\domain\movie\infrastructure\MovieProvider::class, \siesta\infrastructure\movie\persistence\EloquentMovieProvider::class);
 $app->bind(\siesta\infrastructure\vote\persistence\ScoreTransformer::class, \siesta\infrastructure\vote\persistence\EloquentScoreTransformer::class);
-$app->bind(\siesta\domain\vote\infrastructure\VoteRecorder::class, \siesta\infrastructure\vote\persistence\EloquentVoteRecorder::class);
-$app->bind(\siesta\domain\user\infrastructure\UserRecorder::class, \siesta\infrastructure\user\persistence\EloquentUserRecorder::class);
-$app->bind(\siesta\domain\vote\infrastructure\VoteProvider::class, \siesta\infrastructure\vote\persistence\EloquentVoteProvider::class);
+$app->bind(\siesta\domain\vote\infrastructure\VoteRecorder::class, \siesta\infrastructure\vote\persistence\EloquentUserVoteRecorder::class);
+$app->bind(\siesta\domain\vote\infrastructure\VoteProvider::class, \siesta\infrastructure\vote\persistence\EloquentUserVoteProvider::class);
 $app->bind(\siesta\domain\user\infrastructure\UserProvider::class, \siesta\infrastructure\user\persistence\EloquentUserProvider::class);
 $app->bind(\siesta\domain\festival\infrastructure\FilmFestivalProvider::class, \siesta\infrastructure\festival\persistence\EloquentFilmFestivalProvider::class);

@@ -1,7 +1,7 @@
 <?php
 
 /** @var \App\Presentation\MovieDecorator $movie */
-/** @var array $users */
+/** @var \siesta\domain\user\User[] $users */
 ?>
 
 @extends('base')
@@ -44,23 +44,25 @@
                             Falta algo, mozo
                         </div>
                     @endif
-                    <?php for($i = 0; $i < count($users); $i++): ?>
-                    <span><strong><?php echo $users[$i]?></strong></span>
-                    <fieldset class="margin-left-15">
-                        <label>
-                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="-1" checked>&nbsp;Sin votar
-                        </label>
-                        <label>
-                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="0" {{$movie->isNoScore($i)}}>&nbsp;No querer
-                        </label>
-                        <label>
-                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="1" {{$movie->isWeakScore($i)}}>&nbsp;Podría verla
-                        </label>
-                        <label>
-                            <input type="radio" name="user_<?= $i ?>" class="vote btn btn-secondary" value="2" {{$movie->isStrongScore($i)}}>&nbsp;Quiero verla!!
-                        </label>
-                    </fieldset>
-                    <?php endfor; ?>
+                    @foreach($users as $user)
+                        <span><strong>{{$user->getName()}}</strong></span>
+                        <fieldset class="margin-left-15">
+                            <label>
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="-1" checked>&nbsp;Sin votar
+                            </label>
+                            <label>
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="0" {{$movie->isNoScore($user->getId())}}>&nbsp;No querer
+                            </label>
+                            <label>
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="1" {{$movie->isWeakScore($user->getId())}}>&nbsp;Podría
+                                verla
+                            </label>
+                            <label>
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="2" {{$movie->isStrongScore($user->getId())}}>&nbsp;Quiero
+                                verla!!
+                            </label>
+                        </fieldset>
+                    @endforeach
                     <button type="submit" class="margin-top-10">Enviar voto!</button>
 
                 </div>
