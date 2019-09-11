@@ -9,6 +9,8 @@ use siesta\application\movie\usecases\ObtainMovieCommand;
 use siesta\application\movie\usecases\ObtainMovieHandler;
 use siesta\application\movie\usecases\StoreMovieCommand;
 use siesta\application\movie\usecases\StoreMovieHandler;
+use siesta\application\movie\usecases\UpdateTrailerCommand;
+use siesta\application\movie\usecases\UpdateTrailerHandler;
 use siesta\application\movie\usecases\VoteMovieCommand;
 use siesta\application\movie\usecases\VoteMovieHandler;
 use siesta\domain\exception\MovieNotFoundException;
@@ -77,5 +79,21 @@ class MovieController extends SiestaController
 
             return redirect('movie/' . ++$id);
         }
+    }
+
+    public function updateTrailer(Request $request, $id)
+    {
+        if ($request->isMethod('put')) {
+
+            $command = new UpdateTrailerCommand();
+            $command->setId($id);
+            $command->setTrailerId($request->input('trailer_id', ''));
+
+            /** @var UpdateTrailerHandler $handler */
+            $handler = app()->make(UpdateTrailerHandler::class);
+            $handler->execute($command);
+            echo json_encode(['status' => 'ok']);
+        }
+        echo json_encode(['status' => 'ko']);
     }
 }
