@@ -23,12 +23,13 @@ class ObtainMoviesMostVotedHandler
     }
 
     /**
+     * @param int $filmFestivalId
      * @return array
      * @throws \siesta\domain\exception\MovieNotFoundException
      */
-    public function execute(): array
+    public function execute($filmFestivalId): array
     {
-        $voteList = $this->_voteProvider->getVotesOrderedByScore();
+        $voteList = $this->_voteProvider->getVotesOfFilmFestivalIdOrderedByScore($filmFestivalId);
         $movieList = [];
         foreach ($voteList as $vote) {
             $movie = $this->_movieProvider->getMovieById($vote->getMovieId());

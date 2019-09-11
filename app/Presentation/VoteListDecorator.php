@@ -9,11 +9,11 @@ use siesta\domain\vote\WeakScore;
 class VoteListDecorator
 {
     private const RELATIONS = [
-        '0' => 'D',
         '1' => 'S',
-        '2' => 'U',
-        '3' => 'L',
-        '4' => 'M',
+        '21' => 'D',
+        '11' => 'U',
+        '41' => 'L',
+        '31' => 'M',
     ];
     /** @var Movie[] */
     private $_movieList;
