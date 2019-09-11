@@ -87,13 +87,16 @@ class MovieController extends SiestaController
 
             $command = new UpdateTrailerCommand();
             $command->setId($id);
-            $command->setTrailerId($request->input('trailer_id', ''));
+            $jsonData = json_decode($request->getContent());
+            $command->setTrailerId($jsonData->trailer_id);
 
             /** @var UpdateTrailerHandler $handler */
             $handler = app()->make(UpdateTrailerHandler::class);
             $handler->execute($command);
-            echo json_encode(['status' => 'ok']);
+
+            return json_encode(['status' => 'El trailer ha sido modificado']);
         }
-        echo json_encode(['status' => 'ko']);
+
+        return json_encode(['status' => 'Ha habido un error al guardarlo']);
     }
 }
