@@ -29,6 +29,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         'Panorama - Sitges Documenta',
         'Noves Visions - Sitges Documenta',
         'Sitges Clàssics',
+        'Sitges Classics',
         'Anima\'t Cortos'
     ];
     /** @var HtmlParser */

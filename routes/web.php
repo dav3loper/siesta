@@ -33,3 +33,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/movie/{id}', 'MovieController@show');
     Route::post('/movie/{id}', 'MovieController@vote');
 });
+
+Route::put('/movie/{id}/trailer', 'MovieController@updateTrailer');
