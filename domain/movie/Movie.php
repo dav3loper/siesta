@@ -210,7 +210,7 @@ class Movie
     /**
      * @param string $_comments
      */
-    public function setComments(string $_comments): void
+    public function setComments($_comments): void
     {
         $this->_comments = $_comments;
     }

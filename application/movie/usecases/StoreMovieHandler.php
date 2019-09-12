@@ -63,6 +63,9 @@ class StoreMovieHandler
             if (empty($command->getFilmFestivalId())) {
                 $errors[] = "Empty filmFestivalId:{$command->getFilmFestivalId()}";
             }
+            if (empty($command->getLink())) {
+                $errors[] = "Empty link:{$command->getLink()}";
+            }
 
             if (!empty($errors)) {
                 throw new WrongInputException(json_encode($errors));
@@ -85,6 +88,7 @@ class StoreMovieHandler
         $movie->setDuration($command->getDuration());
         $movie->setTrailerId($command->getTrailer());
         $movie->setFilmFestivalId($command->getFilmFestivalId());
+        $movie->setLink($command->getLink());
 
         return $movie;
     }
