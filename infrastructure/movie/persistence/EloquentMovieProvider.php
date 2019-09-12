@@ -11,7 +11,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
 {
 
     private const TABLE_NAME = 'movie';
-    private const FILLABLE_FIELDS = ['title', 'poster', 'trailer_id', 'duration', 'summary', 'comments'];
+    private const FILLABLE_FIELDS = ['title', 'poster', 'trailer_id', 'duration', 'summary', 'link', 'comments'];
     private const ID = 'id';
 
     /** @var EloquentMovieTransformer */

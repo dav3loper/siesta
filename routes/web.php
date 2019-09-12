@@ -27,9 +27,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Authorized routs
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/list', 'VoteController@listVotes');
+    Route::get('/film-festival/{id}/list', 'VoteController@listVotes');
 
     // votaciones
     Route::get('/movie/{id}', 'MovieController@show');
     Route::post('/movie/{id}', 'MovieController@vote');
 });
+
+Route::put('/movie/{id}/trailer', 'MovieController@updateTrailer');

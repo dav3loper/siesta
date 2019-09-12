@@ -14,9 +14,10 @@ interface VoteProvider
     public function getVotesByMovieId(int $id): Vote;
 
     /**
+     * @param $filmFestivalId
      * @return Vote[]
      */
-    public function getVotesOrderedByScore(): array;
+    public function getVotesOfFilmFestivalIdOrderedByScore($filmFestivalId): array;
 
     /**
      * @param int $filmFestivalId

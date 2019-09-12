@@ -24,6 +24,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="{{$decorator->getNextMovieToVote()}}" type="button" class="btn btn-sm btn-outline-secondary">Votar</a>
+                                        <a href="{{$decorator->getMovieListUrl()}}" type="button" class="btn btn-sm btn-outline-secondary">Listado</a>
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Ver horario</button>
                                     </div>
                                     <small class="text-muted">{{$decorator->getCurrentDuration()}}</small>

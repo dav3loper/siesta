@@ -14,7 +14,7 @@ use siesta\domain\movie\Movie;
 class EloquentMovieRecorder extends Model implements MovieRecorder
 {
     private const TABLE_NAME = 'movie';
-    private const FILLABLE_FIELDS = [self::TITLE, 'poster', 'trailer_id', 'duration', 'summary', 'comments', 'film_festival_id'];
+    private const FILLABLE_FIELDS = [self::TITLE, 'poster', 'trailer_id', 'duration', 'summary', 'link', 'comments', 'film_festival_id'];
     private const TITLE = 'title';
 
     /**
@@ -70,6 +70,7 @@ class EloquentMovieRecorder extends Model implements MovieRecorder
             $movie->getTrailerId(),
             $movie->getDuration(),
             $movie->getSummary(),
+            $movie->getLink(),
             $movie->getComments(),
             $movie->getFilmFestivalId()
 

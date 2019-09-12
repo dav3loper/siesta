@@ -146,4 +146,17 @@ class MovieDecorator
 
         return '500px';
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_movie->getId();
+    }
+
+    public function getLink()
+    {
+        return $this->_movie->getLink();
+    }
 }

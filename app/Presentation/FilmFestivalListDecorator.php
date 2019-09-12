@@ -129,4 +129,12 @@ class FilmFestivalListDecorator implements \Iterator
     {
         return $this->_filmFestivalList[$this->_current];
     }
+
+    public function getMovieListUrl()
+    {
+        /** @var FilmFestival $current */
+        $current = $this->current();
+
+        return UrlGenerator::getListUrl($current->getId());
+    }
 }

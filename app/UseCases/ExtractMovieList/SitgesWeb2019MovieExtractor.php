@@ -29,6 +29,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         'Panorama - Sitges Documenta',
         'Noves Visions - Sitges Documenta',
         'Sitges Clàssics',
+        'Sitges Classics',
         'Anima\'t Cortos'
     ];
     /** @var HtmlParser */
@@ -65,6 +66,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
                 $movie->setDuration($this->_getDuration($link));
                 $movie->setPoster($this->_getPosterFromMovieElement($domMovie, $title));
                 $movie->setSummary($this->_getSummary($link));
+                $movie->setLink($link);
                 $movieList[] = $movie;
             } catch (MovieNotForVoteException $e) {
                 continue;
