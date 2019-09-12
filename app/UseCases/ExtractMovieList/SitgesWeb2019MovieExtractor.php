@@ -66,6 +66,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
                 $movie->setDuration($this->_getDuration($link));
                 $movie->setPoster($this->_getPosterFromMovieElement($domMovie, $title));
                 $movie->setSummary($this->_getSummary($link));
+                $movie->setLink($link);
                 $movieList[] = $movie;
             } catch (MovieNotForVoteException $e) {
                 continue;

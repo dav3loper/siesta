@@ -154,4 +154,9 @@ class MovieDecorator
     {
         return $this->_movie->getId();
     }
+
+    public function getLink()
+    {
+        return $this->_movie->getLink();
+    }
 }
