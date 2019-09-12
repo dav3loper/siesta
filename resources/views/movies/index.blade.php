@@ -9,7 +9,15 @@
     <div class="container">
         <div class="row margin-top-30">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <h2><i class="material-icons">movie</i> {{ $movie->getTitle()}}
+                <h2>
+                    <i class="material-icons">movie</i>
+                    @if($movie->getLink())
+                        <a target="_blank" href="{{ $movie->getLink()}}">
+                            @endif
+                            {{ $movie->getTitle()}}
+                            @if($movie->getLink())
+                        </a>
+                    @endif
                     <small>({{ $movie->getDuration() }})</small>
                 </h2>
             </div>

@@ -146,4 +146,9 @@ class MovieDecorator
 
         return '500px';
     }
+
+    public function getLink()
+    {
+        return $this->_movie->getLink();
+    }
 }

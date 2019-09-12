@@ -25,6 +25,8 @@ class Movie
     private $_filmFestivalId;
     /** @var string */
     private $_comments = '';
+    /** @var string */
+    private $_link;
 
     /**
      * @param int $movieId
@@ -211,5 +213,18 @@ class Movie
     public function setComments(string $_comments): void
     {
         $this->_comments = $_comments;
+    }
+
+    public function setLink($link)
+    {
+        $this->_link = $link;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->_link;
     }
 }
