@@ -175,7 +175,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         $rawTextList = $this->_htmlParser->getElementsByClass($link, 'section_sinopsi');
         $rawText = current($rawTextList);
         if (!$rawText) {
-            return '';
+            return 'Sin sinopsis';
         }
 
         return trim(str_replace('Sinopsis', '', $rawText->text()));
