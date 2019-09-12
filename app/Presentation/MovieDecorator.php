@@ -66,7 +66,7 @@ class MovieDecorator
     /**
      * @return string
      */
-    public function getComments(): string
+    public function getComments()
     {
         return $this->_movie->getComments();
     }
