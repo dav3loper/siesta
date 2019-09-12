@@ -20,4 +20,13 @@ class UrlGenerator
     {
         return 'movie/' . $id;
     }
+
+    /**
+     * @param $filmFestivalId
+     * @return string
+     */
+    public static function getListUrl($filmFestivalId)
+    {
+        return sprintf('film-festival/%s/list', $filmFestivalId);
+    }
 }

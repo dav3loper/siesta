@@ -74,18 +74,26 @@ class EloquentUserVoteProvider extends Model implements VoteProvider
     /**
      * @return Vote[]
      */
-    public function getVotesOrderedByScore(): array
+    public function getVotesOfFilmFestivalIdOrderedByScore($filmFestivalId): array
     {
-//        $allMappingVotes = self::all([self::MOVIE_ID, self::VOTES]);
-//        $voteList = [];
-//        foreach ($allMappingVotes as $mappingVote) {
-//            $vote = $this->_getVoteFromMapping($mappingVote->getAttributes());
-//            $voteList[] = $vote;
-//        }
-//        usort($voteList, $this->_orderByTotalScore());
-//
-//        return $voteList;
-        throw new \Exception('not implemented yet');
+
+        $mappingList = self::join('movie', 'movie_id', '=', 'movie.id')
+            ->where('movie.film_festival_id', '=', $filmFestivalId)
+            //TODO :select los campos q quiero!
+            ->get();
+
+        $algoList = [];
+        foreach ($mappingList as $mapping) {
+            $algoList[$mapping->movie_id][] = $mapping;
+        }
+        $voteList = [];
+        foreach ($algoList as $movieId => $algo) {
+            $vote = $this->_getVoteFromMapping($algo, $movieId);
+            $voteList[] = $vote;
+        }
+        usort($voteList, $this->_orderByTotalScore());
+
+        return $voteList;
     }
 
     /**
