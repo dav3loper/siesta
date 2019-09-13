@@ -18,7 +18,7 @@ class UrlGenerator
      */
     public static function getShowMovie($id): string
     {
-        return 'movie/' . $id;
+        return env('APP_URL') . '/movie/' . $id;
     }
 
     /**
