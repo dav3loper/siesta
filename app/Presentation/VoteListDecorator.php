@@ -15,6 +15,8 @@ class VoteListDecorator
         '41' => 'L',
         '31' => 'M',
     ];
+    private const VOTES_ORDER = ['D', 'd', 'S', 's', 'U', 'u', 'L', 'l', 'M', 'm'];
+
     /** @var Movie[] */
     private $_movieList;
     //fixme: sacar relacion de usuarios a env o algo
@@ -65,19 +67,25 @@ class VoteListDecorator
     public function getCurrentVote(): string
     {
         $voteList = $this->_getCurrentMovie()->getIndividualVoteList();
-        $stringVotation = '';
+        $stringVotation = [];
         foreach ($voteList as $individualVote) {
             if ($individualVote->getScore() instanceof StrongScore) {
                 $initial = self::RELATIONS[$individualVote->getUserId()];
-                $stringVotation .= strtoupper($initial);
+                $stringVotation[] = strtoupper($initial);
             }
             if ($individualVote->getScore() instanceof WeakScore) {
                 $initial = self::RELATIONS[$individualVote->getUserId()];
-                $stringVotation .= strtolower($initial);
+                $stringVotation[] = strtolower($initial);
             }
         }
+        uasort($stringVotation, function ($a, $b) {
+            $aOrder = array_search($a, self::VOTES_ORDER, true);
+            $bOrder = array_search($b, self::VOTES_ORDER, true);
 
-        return $stringVotation;
+            return $aOrder > $bOrder;
+        });
+
+        return implode('', $stringVotation);
     }
 
     /**
