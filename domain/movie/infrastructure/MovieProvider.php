@@ -12,9 +12,17 @@ use siesta\domain\movie\Movie;
 interface MovieProvider
 {
     /**
-     * @param int $id
-     * @return Movie
      * @throws MovieNotFoundException
      */
-    public function getMovieById($id): Movie;
+    public function getMovieById(int $id): Movie;
+
+    /**
+     * @throws MovieNotFoundException
+     */
+    public function getMovieByTitle(string $title): Movie;
+
+    /**
+     * @throws MovieNotFoundException
+     */
+    public function getFirstMovieByFilmFestival(int $festivalId): Movie;
 }

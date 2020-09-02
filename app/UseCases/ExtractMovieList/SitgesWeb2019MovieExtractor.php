@@ -2,8 +2,11 @@
 namespace App\UseCases\ExtractMovieList;
 
 use App\Helpers\FinderVideoService;
+use siesta\domain\exception\MovieAlreadyExtractedException;
 use siesta\domain\exception\MovieNotForVoteException;
+use siesta\domain\exception\MovieNotFoundException;
 use siesta\domain\extraction\MovieExtractor;
+use siesta\domain\movie\infrastructure\MovieProvider;
 use siesta\domain\movie\Movie;
 use siesta\infrastructure\movie\http\HtmlParser;
 
@@ -21,6 +24,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         'Sessió Especial Curts',
         'Anima\'t Cortos',
         'Oficial Fantàstic Competició Curts',
+        'Oficial Fantàstic Competición Cortos',
         'Official Fantàstic Competition Shorts',
         'Noves Visions - Small format',
         'Serial Sitges',
@@ -32,20 +36,15 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         'Sitges Classics',
         'Anima\'t Cortos'
     ];
-    /** @var HtmlParser */
-    private $_htmlParser;
-    /** @var FinderVideoService */
-    private $_finderVideoService;
+    private HtmlParser $_htmlParser;
+    private FinderVideoService $_finderVideoService;
+    private MovieProvider $_movieProvider;
 
-    /**
-     * SitgesWeb2018MovieExtractor constructor.
-     * @param HtmlParser $htmlParser
-     * @param FinderVideoService $finderVideoService
-     */
-    public function __construct(HtmlParser $htmlParser, FinderVideoService $finderVideoService)
+    public function __construct(HtmlParser $htmlParser, FinderVideoService $finderVideoService, MovieProvider $movieProvider)
     {
         $this->_htmlParser = $htmlParser;
         $this->_finderVideoService = $finderVideoService;
+        $this->_movieProvider = $movieProvider;
     }
 
     /**
@@ -60,6 +59,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
             try {
                 $this->_checkForVotableMovie($domMovie);
                 [$title, $link] = $this->_getTitleFromMovieElement($domMovie);
+                $this->_checkForMovieExtracted($title);
                 $movie = new Movie();
                 $movie->setTitle($title);
                 $movie->setTrailerId($this->_getTrailer($title));
@@ -68,7 +68,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
                 $movie->setSummary($this->_getSummary($link));
                 $movie->setLink($link);
                 $movieList[] = $movie;
-            } catch (MovieNotForVoteException $e) {
+            } catch (MovieNotForVoteException|MovieAlreadyExtractedException $e) {
                 continue;
             }
         }
@@ -155,7 +155,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
     {
         $title = str_replace(['1', '2', '3', '4', '5', '6', '7', '8', '9'], ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'], $title);
         $cineMaterialSerch = file_get_contents('https://www.cinematerial.com/search?q=' . urlencode($title));
-        if (preg_match('#<img\ssrc="(https://cdn.cinematerial.com/p/60x/[^"]*)"#', $cineMaterialSerch, $matches)) {
+        if (preg_match('#<img\ssrc="?(https://cdn.cinematerial.com/p/60x/[^" ]*)[" ]#', $cineMaterialSerch, $matches)) {
             $image = str_replace('60x', '500x', $matches[1]);
             preg_match('/style="color:\s#8C8C8C;">([^<]*)<\/span>/', $cineMaterialSerch, $yearMatches);
             if (\in_array(trim($yearMatches[1]), ['2019', '2018'], true)) {
@@ -179,5 +179,18 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         }
 
         return trim(str_replace('Sinopsis', '', $rawText->text()));
+    }
+
+    /**
+     * @throws MovieAlreadyExtractedException
+     */
+    private function _checkForMovieExtracted(?string $title): void
+    {
+        try {
+            $this->_movieProvider->getMovieByTitle($title);
+            throw new MovieAlreadyExtractedException();
+        }catch (MovieNotFoundException $e){
+        }
+
     }
 }
