@@ -30,6 +30,7 @@ class FilmFestivalListDecorator implements \Iterator
     private $_current;
     /** @var array */
     private $_lastVotedFilmPerFestival;
+    private int $_numFestivals;
 
     /**
      * FilmFestivalListDecorator constructor.
@@ -39,14 +40,15 @@ class FilmFestivalListDecorator implements \Iterator
     {
         $this->_filmFestivalList = $dashBoardResponse->getFilmFestivalList();
         $this->_lastVotedFilmPerFestival = $dashBoardResponse->getLastVotedFilmPerFestival();
-        $this->_current = 0;
+        $this->_current = current($this->_filmFestivalList);
+        $this->_numFestivals = 0;
     }
 
 
     public function getNextMovieToVote()
     {
         $lastVotedFilm = 1;
-        $currentIdFilmFestival = $this->_current + 1;
+        $currentIdFilmFestival = $this->_current->getId();
         if (array_key_exists($currentIdFilmFestival, $this->_lastVotedFilmPerFestival)) {
             $lastVotedFilm = $this->_lastVotedFilmPerFestival[$currentIdFilmFestival] + 1;
         }
@@ -62,7 +64,8 @@ class FilmFestivalListDecorator implements \Iterator
      */
     public function next()
     {
-        $this->_current++;
+        $this->_current = next($this->_filmFestivalList);
+        $this->_numFestivals++;
     }
 
     /**
@@ -73,7 +76,7 @@ class FilmFestivalListDecorator implements \Iterator
      */
     public function key()
     {
-        return $this->_current;
+        return $this->_numFestivals;
     }
 
     /**
@@ -85,7 +88,7 @@ class FilmFestivalListDecorator implements \Iterator
      */
     public function valid()
     {
-        return $this->_current < \count($this->_filmFestivalList);
+        return $this->_current != null;
     }
 
     /**
@@ -96,7 +99,7 @@ class FilmFestivalListDecorator implements \Iterator
      */
     public function rewind()
     {
-        $this->_current = 0;
+        $this->_current = reset($this->_filmFestivalList);
     }
 
     /**
@@ -127,7 +130,7 @@ class FilmFestivalListDecorator implements \Iterator
      */
     public function current()
     {
-        return $this->_filmFestivalList[$this->_current];
+        return $this->_current;
     }
 
     public function getMovieListUrl()
