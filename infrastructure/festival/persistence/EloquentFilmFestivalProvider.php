@@ -31,7 +31,7 @@ class EloquentFilmFestivalProvider extends Model implements FilmFestivalProvider
     {
         try {
 
-            $mappingList = self::all();
+            $mappingList = self::all()->sortByDesc('id');
 
             return $this->_fromModelToDomain($mappingList);
         } catch (\Exception $e) {

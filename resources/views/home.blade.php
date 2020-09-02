@@ -14,7 +14,7 @@
         @foreach($decorator as $index=>$filmFestival)
             @if($index % 2 === 0)
                 <div class="row">
-                    @endif
+            @endif
                     <div class="col-md-6">
                         <div class="card mb-6 shadow-sm">
                             <img src="{{ asset('/img/'.$filmFestival->getEdition().'.jpg') }}" alt="Sitges {{ $filmFestival->getEdition() }}" class="img-thumbnail">
@@ -32,8 +32,9 @@
                             </div>
                         </div>
                     </div>
-                    @if($index % 2 === 1)
+            @if($index % 2 === 1)
                 </div>
+                <br/>
             @endif
         @endforeach
     </div>
