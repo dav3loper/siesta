@@ -1,0 +1,35 @@
+version: '3'
+services:
+   php:
+      build:
+        context: .
+      working_dir: /var/www
+      container_name: apache_siesta
+      volumes:
+       - .:/var/www/
+       - ~/.ssh:/root/.ssh
+       - ./docker/siesta.conf:/etc/apache2/sites-available/000-default.conf:ro
+      ports:
+        - 8080:80
+      links:
+        - db
+      depends_on:
+        - db
+      env_file: docker/.env
+   db:
+        image: mariadb:10.3.22-bionic
+        container_name: mysql_siesta
+        environment:
+            MYSQL_DATABASE: siesta
+            MYSQL_ROOT_PASSWORD: root
+        command:
+            - "--character-set-server=utf8"
+            - "--collation-server=utf8_unicode_ci"
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+            - ./dockerFiles/mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        ports:
+            - 33306:3306
+volumes:
+  dbdata:
+    driver: local
