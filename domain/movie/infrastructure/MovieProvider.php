@@ -20,4 +20,9 @@ interface MovieProvider
      * @throws MovieNotFoundException
      */
     public function getMovieByTitle(string $title): Movie;
+
+    /**
+     * @throws MovieNotFoundException
+     */
+    public function getFirstMovieByFilmFestival(int $festivalId): Movie;
 }
