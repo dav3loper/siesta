@@ -14,6 +14,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
     private const FILLABLE_FIELDS = ['title', 'poster', 'trailer_id', 'duration', 'summary', 'link', 'comments'];
     private const ID = 'id';
     private const TITLE = 'title';
+    const FILM_FESTIVAL_ID = 'film_festival_id';
 
     /** @var EloquentMovieTransformer */
     private $_transformer;
@@ -68,6 +69,19 @@ class EloquentMovieProvider extends Model implements MovieProvider
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var EloquentMovieProvider $mapping */
             $mapping = self::where(self::TITLE, '=', $title)->firstOrFail();
+
+            return $this->_getMovieFromMapping($mapping->getAttributes());
+        } catch (ModelNotFoundException $e) {
+            throw new MovieNotFoundException($e);
+        }
+    }
+
+    public function getFirstMovieByFilmFestival(int $festivalId): Movie
+    {
+        try {
+            /** @noinspection PhpUndefinedMethodInspection */
+            /** @var EloquentMovieProvider $mapping */
+            $mapping = self::where(self::FILM_FESTIVAL_ID, '=', $festivalId)->firstOrFail();
 
             return $this->_getMovieFromMapping($mapping->getAttributes());
         } catch (ModelNotFoundException $e) {
