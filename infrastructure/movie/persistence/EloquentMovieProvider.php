@@ -13,6 +13,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
     private const TABLE_NAME = 'movie';
     private const FILLABLE_FIELDS = ['title', 'poster', 'trailer_id', 'duration', 'summary', 'link', 'comments'];
     private const ID = 'id';
+    private const TITLE = 'title';
 
     /** @var EloquentMovieTransformer */
     private $_transformer;
@@ -59,5 +60,18 @@ class EloquentMovieProvider extends Model implements MovieProvider
         $fields[] = self::ID;
 
         return $this->_transformer->fromArrayToMovie($mapping, $fields);
+    }
+
+    public function getMovieByTitle(string $title): Movie
+    {
+        try {
+            /** @noinspection PhpUndefinedMethodInspection */
+            /** @var EloquentMovieProvider $mapping */
+            $mapping = self::where(self::TITLE, '=', $title)->firstOrFail();
+
+            return $this->_getMovieFromMapping($mapping->getAttributes());
+        } catch (ModelNotFoundException $e) {
+            throw new MovieNotFoundException($e);
+        }
     }
 }
