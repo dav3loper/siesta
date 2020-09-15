@@ -97,9 +97,9 @@ class EloquentMovieProvider extends Model implements MovieProvider
             /** @var EloquentMovieProvider $mapping */
             //TODO: sacar a raws
             $mappingList = DB::select('SELECT *
-                                      FROM siesta.movie m
+                                      FROM movie m
                                       where m.film_festival_id = '.$getFilmFestivalId.' and m.id '.$operator.' '.$getMovieId.' and m.id NOT IN (
-	                                  select v.movie_id from siesta.user_vote v
+	                                  select v.movie_id from user_vote v
                                       where v.user_id = '.$userId.')
                                       order by m.id asc
                                       limit 1;');
