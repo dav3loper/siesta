@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Presentation\MovieDecorator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use siesta\application\exception\WrongInputException;
+use siesta\application\movie\usecases\GetNextMovieToVoteCommand;
+use siesta\application\movie\usecases\GetNextMovieToVoteHandler;
 use siesta\application\movie\usecases\ObtainMovieCommand;
 use siesta\application\movie\usecases\ObtainMovieHandler;
 use siesta\application\movie\usecases\StoreMovieCommand;
@@ -77,7 +80,7 @@ class MovieController extends SiestaController
             $handler = app()->make(VoteMovieHandler::class);
             $handler->execute($command);
 
-            return redirect('movie/' . ++$id);
+            return redirect('movie/next/' . $id);
         }
     }
 
@@ -98,5 +101,27 @@ class MovieController extends SiestaController
         }
 
         return json_encode(['status' => 'Ha habido un error al guardarlo']);
+    }
+
+    public function nextToVote(Request $request, $id)
+    {
+        if (!$request->isMethod('get')) {
+            return '';
+        }
+        $command = new GetNextMovieToVoteCommand(
+            $id,
+            Auth::user()->id
+        );
+
+        /** @var GetNextMovieToVoteHandler $handler */
+        $handler = app()->make(GetNextMovieToVoteHandler::class);
+        $movie = $handler->execute($command);
+        if($movie === null){
+            return view('movies.congrats');
+
+        }
+        return redirect('movie/' . $movie->getId());
+
+
     }
 }

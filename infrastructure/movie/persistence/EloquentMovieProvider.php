@@ -3,6 +3,7 @@ namespace siesta\infrastructure\movie\persistence;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use siesta\domain\exception\MovieNotFoundException;
 use siesta\domain\movie\infrastructure\MovieProvider;
 use siesta\domain\movie\Movie;
@@ -11,7 +12,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
 {
 
     private const TABLE_NAME = 'movie';
-    private const FILLABLE_FIELDS = ['title', 'poster', 'trailer_id', 'duration', 'summary', 'link', 'comments'];
+    private const FILLABLE_FIELDS = ['title', 'poster', 'trailer_id', 'duration', 'summary', 'link', 'comments', 'film_festival_id'];
     private const ID = 'id';
     private const TITLE = 'title';
     const FILM_FESTIVAL_ID = 'film_festival_id';
@@ -87,5 +88,30 @@ class EloquentMovieProvider extends Model implements MovieProvider
         } catch (ModelNotFoundException $e) {
             throw new MovieNotFoundException($e);
         }
+    }
+
+    public function getNextNonVotedMovie(int $getMovieId, int $getFilmFestivalId, int $userId, string $operator): Movie
+    {
+        try {
+            /** @noinspection PhpUndefinedMethodInspection */
+            /** @var EloquentMovieProvider $mapping */
+            //TODO: sacar a raws
+            $mappingList = DB::select('SELECT *
+                                      FROM siesta.movie m
+                                      where m.film_festival_id = '.$getFilmFestivalId.' and m.id '.$operator.' '.$getMovieId.' and m.id NOT IN (
+	                                  select v.movie_id from siesta.user_vote v
+                                      where v.user_id = '.$userId.')
+                                      order by m.id asc
+                                      limit 1;');
+            $mapping = current($mappingList);
+            if(empty($mapping)){
+                throw new MovieNotFoundException();
+            }
+
+            return $this->_getMovieFromMapping((array)$mapping);
+        } catch (ModelNotFoundException $e) {
+            throw new MovieNotFoundException($e);
+        }
+
     }
 }
