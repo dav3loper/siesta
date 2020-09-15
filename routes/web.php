@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     // votaciones
     Route::get('/movie/{id}', 'MovieController@show');
     Route::post('/movie/{id}', 'MovieController@vote');
+    Route::get('/movie/next/{id}', 'MovieController@nextToVote');
 });
 
 Route::put('/movie/{id}/trailer', 'MovieController@updateTrailer');

@@ -10,10 +10,8 @@ use siesta\domain\vote\infrastructure\VoteProvider;
 
 class DashboardUserHandler
 {
-    /** @var FilmFestivalProvider */
-    private $_festivalProvider;
-    /** @var VoteProvider */
-    private $_voteProvider;
+    private FilmFestivalProvider $_festivalProvider;
+    private VoteProvider $_voteProvider;
     private MovieProvider $_movieProvider;
 
     /**
