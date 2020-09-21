@@ -28,7 +28,7 @@ class MovieDecorator
      */
     public function getTitle(): string
     {
-        return ucwords(strtolower($this->_movie->getTitle()));
+        return ucwords(mb_strtolower($this->_movie->getTitle()));
     }
 
     /**
