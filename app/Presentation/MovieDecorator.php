@@ -159,4 +159,9 @@ class MovieDecorator
     {
         return $this->_movie->getLink();
     }
+
+    public function getAlias(): ?string
+    {
+        return $this->_movie->getAlias();
+    }
 }
