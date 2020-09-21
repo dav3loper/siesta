@@ -5,8 +5,10 @@
  */
 import ChangeTrailerComponent from "./components/ChangeTrailerComponent";
 import MovieRepository from "./infrastructure/MovieRepository";
+import ChangeAliasComponent from "./components/ChangeAliasComponent";
 
 require('./bootstrap');
 
 //TODO: sacar a factorias
 const changeTrailerComponent = new ChangeTrailerComponent(new MovieRepository());
+const changeAliasComponent = new ChangeAliasComponent(new MovieRepository());

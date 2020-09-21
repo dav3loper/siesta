@@ -22,7 +22,10 @@
                     </tr>
                     <?php for($i = 0; $i < $decorator->getTotalSize(); $i++, $decorator->next()):?>
                     <tr class="{{$decorator->getCurrentMovieColor()}}">
-                        <td><a href="{{$decorator->getCurrentMovieLink()}}" target="_blank">{{$decorator->getCurrentMovieName()}}</a></td>
+                        <td>
+                            <a href="{{$decorator->getCurrentMovieLink()}}" target="_blank">{{$decorator->getCurrentMovieName()}}</a>
+                            <small>{{$decorator->getCurrentMovieAlias()}}</small>
+                        </td>
                         <td>{{$decorator->getCurrentVote()}}</td>
                     </tr>
                     <?php endfor;?>

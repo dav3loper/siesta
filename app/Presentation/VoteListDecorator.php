@@ -58,7 +58,7 @@ class VoteListDecorator
     {
         $current = $this->_getCurrentMovie();
 
-        return ucwords(strtolower($current->getTitle()));
+        return ucwords(mb_strtolower($current->getTitle()));
     }
 
     /**
@@ -121,5 +121,18 @@ class VoteListDecorator
         }
 
         return 'red-vote';
+    }
+
+
+    public function getCurrentMovieAlias(): ?string
+    {
+        $current = $this->_getCurrentMovie();
+
+        $alias = $current->getAlias();
+        if($alias) {
+            return ' [' . strtolower($alias) .']';
+        }
+        return '';
+
     }
 }

@@ -12,6 +12,8 @@ use siesta\application\movie\usecases\ObtainMovieCommand;
 use siesta\application\movie\usecases\ObtainMovieHandler;
 use siesta\application\movie\usecases\StoreMovieCommand;
 use siesta\application\movie\usecases\StoreMovieHandler;
+use siesta\application\movie\usecases\UpdateAliasCommand;
+use siesta\application\movie\usecases\UpdateAliasHandler;
 use siesta\application\movie\usecases\UpdateTrailerCommand;
 use siesta\application\movie\usecases\UpdateTrailerHandler;
 use siesta\application\movie\usecases\VoteMovieCommand;
@@ -98,6 +100,25 @@ class MovieController extends SiestaController
             $handler->execute($command);
 
             return json_encode(['status' => 'El trailer ha sido modificado']);
+        }
+
+        return json_encode(['status' => 'Ha habido un error al guardarlo']);
+    }
+
+    public function updateAlias(Request $request, $id)
+    {
+        if ($request->isMethod('put')) {
+
+            $command = new UpdateAliasCommand();
+            $command->setId($id);
+            $jsonData = json_decode($request->getContent());
+            $command->setAlias($jsonData->alias);
+
+            /** @var UpdateTrailerHandler $handler */
+            $handler = app()->make(UpdateAliasHandler::class);
+            $handler->execute($command);
+
+            return json_encode(['status' => 'Alias modificado']);
         }
 
         return json_encode(['status' => 'Ha habido un error al guardarlo']);

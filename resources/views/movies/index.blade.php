@@ -21,6 +21,11 @@
                     <small>({{ $movie->getDuration() }})</small>
                 </h2>
             </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <input id="updateAliasMovieInput" class="col-md-5 col-sm-11 col-xs-11" type="text" value="{{ $movie->getAlias() }}"/>
+                <i id="updateAliasMovie" class="material-icons" data-movieId="{{$movie->getId()}}">save</i>
+                <span id="infoForUpdateAliasMovie"></span>
+            </div>
         </div>
         <div class="row margin-top-30">
             <div class="col-md-6 col-sm-6 col-xs-6">

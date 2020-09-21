@@ -18,4 +18,13 @@ export default class MovieRepository {
         })
     }
 
+    updateAliasMovie(id, alias) {
+        let url = `${id}/alias`;
+        return fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({alias: alias}),
+            headers: {'Content-Type': 'application/json', 'X-CSRF-TOKEN': this.csrfToken}
+        })
+    }
+
 }

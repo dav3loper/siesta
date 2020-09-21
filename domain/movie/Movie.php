@@ -24,6 +24,8 @@ class Movie
     /** @var int */
     private $_filmFestivalId;
     /** @var string */
+    private $_alias;
+    /** @var string */
     private $_comments = '';
     /** @var string */
     private $_link;
@@ -226,5 +228,21 @@ class Movie
     public function getLink()
     {
         return $this->_link;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias(): ?string
+    {
+        return $this->_alias;
+    }
+
+    /**
+     * @param string $alias
+     */
+    public function setAlias(?string $alias): void
+    {
+        $this->_alias = $alias;
     }
 }
