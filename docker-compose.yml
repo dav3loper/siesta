@@ -27,7 +27,6 @@ services:
             - "--collation-server=utf8_unicode_ci"
         volumes:
             - ./data/mysql:/var/lib/mysql
-            - ./dockerFiles/mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
         ports:
             - 33306:3306
 volumes:
