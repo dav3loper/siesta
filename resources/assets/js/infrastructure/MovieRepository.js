@@ -2,7 +2,6 @@ export default class MovieRepository {
 
     constructor() {
         this.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        console.log(this.csrfToken);
     }
 
     getUrlFor(id) {

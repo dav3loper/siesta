@@ -101,18 +101,19 @@
                     @foreach($users as $user)
                         <span><strong>{{$user->getName()}}</strong></span>
                         <fieldset class="margin-left-15">
+                            <span class="vote btn btn-secondary">
+                                <span class="script__vote">Sin votar</span>
+                                <input type="hidden" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="-1" checked>
+                            </span>
                             <label>
-                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="-1" checked>&nbsp;Sin votar
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary script__vote" value="0" {{$movie->isNoScore($user->getId())}}>&nbsp;No querer
                             </label>
                             <label>
-                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="0" {{$movie->isNoScore($user->getId())}}>&nbsp;No querer
-                            </label>
-                            <label>
-                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="1" {{$movie->isWeakScore($user->getId())}}>&nbsp;Podría
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary script__vote" value="1" {{$movie->isWeakScore($user->getId())}}>&nbsp;Podría
                                 verla
                             </label>
                             <label>
-                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary" value="2" {{$movie->isStrongScore($user->getId())}}>&nbsp;Quiero
+                                <input type="radio" name="user_{{$user->getId()}}" class="vote btn btn-secondary script__vote" value="2" {{$movie->isStrongScore($user->getId())}}>&nbsp;Quiero
                                 verla!!
                             </label>
                         </fieldset>
