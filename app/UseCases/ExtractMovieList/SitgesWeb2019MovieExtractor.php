@@ -158,7 +158,7 @@ class SitgesWeb2019MovieExtractor implements MovieExtractor
         if (preg_match('#<img\ssrc="?(https://cdn.cinematerial.com/p/60x/[^" ]*)[" ]#', $cineMaterialSerch, $matches)) {
             $image = str_replace('60x', '500x', $matches[1]);
             preg_match('/style="color:\s#8C8C8C;">([^<]*)<\/span>/', $cineMaterialSerch, $yearMatches);
-            if (\in_array(trim($yearMatches[1]), ['2019', '2018'], true)) {
+            if (\in_array(trim($yearMatches[1]), ['2021', '2020'], true)) {
                 return $image;
             }
         }

@@ -23,6 +23,7 @@
 - php artisan migrate
 
 # Insert films to vote
+- Edit InsertSitgesFilm to increase film festival id (i know... some day...)
 - php artisan insert:films https://sitgesfilmfestival.com/cas/programa/pel_licules?filmsperpage=250
 
 # Access online form starting with the last film you have voted
