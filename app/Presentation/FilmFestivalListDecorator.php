@@ -50,7 +50,7 @@ class FilmFestivalListDecorator implements \Iterator
         $lastVotedFilm = 1;
         $currentIdFilmFestival = $this->_current->getId();
         if (array_key_exists($currentIdFilmFestival, $this->_lastVotedFilmPerFestival)) {
-            $lastVotedFilm = $this->_lastVotedFilmPerFestival[$currentIdFilmFestival] + 1;
+            $lastVotedFilm = $this->_lastVotedFilmPerFestival[$currentIdFilmFestival] + 10;
         }
 
         return UrlGenerator::getShowMovie($lastVotedFilm);
