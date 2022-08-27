@@ -2,6 +2,7 @@
 namespace siesta\application\movie\usecases;
 
 use siesta\application\movie\usecases\response\ObtainMovieResponse;
+use siesta\domain\exception\MovieNotForVoteException;
 use siesta\domain\exception\MovieNotFoundException;
 use siesta\domain\exception\vote\VoteNotFoundException;
 use siesta\domain\movie\infrastructure\MovieProvider;
@@ -12,6 +13,8 @@ use siesta\domain\vote\Vote;
 
 class ObtainMovieHandler
 {
+    private const NONE = -1;
+
     /** @var MovieProvider */
     private $_movieProvider;
     /** @var VoteProvider */
@@ -36,9 +39,13 @@ class ObtainMovieHandler
      * @param ObtainMovieCommand $command
      * @return ObtainMovieResponse
      * @throws MovieNotFoundException
+     * @throws MovieNotForVoteException
      */
     public function execute(ObtainMovieCommand $command): ObtainMovieResponse
     {
+        if($command->getId() == self::NONE){
+            throw new MovieNotForVoteException();
+        }
         $movie = $this->_movieProvider->getMovieById($command->getId());
         $vote = $this->_getVotesFromMovieId($command);
         if ($vote) {

@@ -18,6 +18,7 @@ use siesta\application\movie\usecases\UpdateTrailerCommand;
 use siesta\application\movie\usecases\UpdateTrailerHandler;
 use siesta\application\movie\usecases\VoteMovieCommand;
 use siesta\application\movie\usecases\VoteMovieHandler;
+use siesta\domain\exception\MovieNotForVoteException;
 use siesta\domain\exception\MovieNotFoundException;
 use siesta\domain\exception\MovieRecordException;
 
@@ -50,6 +51,8 @@ class MovieController extends SiestaController
             /** @var ObtainMovieHandler $handler */
             $handler = app()->make(ObtainMovieHandler::class);
             $response = $handler->execute($command);
+        } catch (MovieNotForVoteException $e) {
+            return view('movies.congrats');
         } catch (MovieNotFoundException $e) {
             return view('404');
         }
