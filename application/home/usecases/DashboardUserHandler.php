@@ -41,7 +41,7 @@ class DashboardUserHandler
                 try {
                     $movie = $this->_movieProvider->getFirstMovieByFilmFestival($festival->getId());
                     //TODO: guarrada pa salir del paso
-                    $lastFilmVotedPerFestival[$festival->getId()] = $movie->getId()-1;
+                    $lastFilmVotedPerFestival[$festival->getId()] = $movie->getId()-10;
                 }catch (MovieNotFoundException $e){
                     continue;
                 }
