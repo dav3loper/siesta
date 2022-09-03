@@ -5,6 +5,8 @@ class ObtainMovieCommand
 {
     /** @var int */
     private $_id;
+    /** @var int */
+    private $userId;
 
     /**
      * @return int
@@ -20,5 +22,18 @@ class ObtainMovieCommand
     public function setId(int $id): void
     {
         $this->_id = $id;
+    }
+
+    public function setUserId($id)
+    {
+        $this->userId = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
     }
 }

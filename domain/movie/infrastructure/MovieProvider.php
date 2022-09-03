@@ -31,4 +31,6 @@ interface MovieProvider
      */
     public function getNextNonVotedMovie(int $getMovieId, int $getFilmFestivalId, int $userId, string $operator): Movie;
 
+    public function getRemainingMoviesFromFilmFestivalAndUser(int $userId, int $filmFestivalId): int;
+
 }

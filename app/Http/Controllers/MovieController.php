@@ -47,6 +47,7 @@ class MovieController extends SiestaController
         try {
             $command = new ObtainMovieCommand();
             $command->setId($id);
+            $command->setUserId(Auth::user()->id);
 
             /** @var ObtainMovieHandler $handler */
             $handler = app()->make(ObtainMovieHandler::class);
@@ -57,7 +58,9 @@ class MovieController extends SiestaController
             return view('404');
         }
 
-        return view('movies.index', ['movie' => new MovieDecorator($response->getMovie()), 'users' => $response->getUserList()]);
+        return view('movies.index', ['movie' => new MovieDecorator(
+            $response->getMovie()), 'users' => $response->getUserList(), 'remaining' => $response->getRemaining()
+            ]);
     }
 
     /**

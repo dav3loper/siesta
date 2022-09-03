@@ -47,6 +47,7 @@ class ObtainMovieHandler
             throw new MovieNotForVoteException();
         }
         $movie = $this->_movieProvider->getMovieById($command->getId());
+        $remainingMovies = $this->_getRemainingMovies($command->getUserId(), $movie->getFilmFestivalId());
         $vote = $this->_getVotesFromMovieId($command);
         if ($vote) {
             $movie->setVote($vote);
@@ -54,6 +55,7 @@ class ObtainMovieHandler
         $reponse = new ObtainMovieResponse();
         $reponse->setMovie($movie);
         $reponse->setUserList($this->_getUserVoting());
+        $reponse->setRemaining($remainingMovies);
 
         return $reponse;
     }
@@ -77,5 +79,10 @@ class ObtainMovieHandler
     private function _getUserVoting(): array
     {
         return $this->_userProvider->findAll();
+    }
+
+    private function _getRemainingMovies(int $userId, int $getFilmFestivalId): int
+    {
+        return $this->_movieProvider->getRemainingMoviesFromFilmFestivalAndUser($userId, $getFilmFestivalId);
     }
 }

@@ -114,4 +114,19 @@ class EloquentMovieProvider extends Model implements MovieProvider
         }
 
     }
+
+    public function getRemainingMoviesFromFilmFestivalAndUser(int $userId, int $filmFestivalId): int
+    {
+        try {
+            //TODO: sacar a raws
+            $count = DB::select('SELECT count(id) as movieRemaining
+                                      FROM movie m
+                                      where m.film_festival_id = '.$filmFestivalId.' and m.id NOT IN (
+	                                  select v.movie_id from user_vote v
+                                      where v.user_id = '.$userId.')');
+            return current($count)->movieRemaining;
+        } catch (ModelNotFoundException $e) {
+            return 0;
+        }
+    }
 }

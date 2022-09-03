@@ -11,6 +11,10 @@ class ObtainMovieResponse
 
     /** @var User[] */
     private $_userList;
+    /**
+     * @var int
+     */
+    private $remaining;
 
     /**
      * @return Movie
@@ -42,6 +46,19 @@ class ObtainMovieResponse
     public function setUserList(array $userList): void
     {
         $this->_userList = $userList;
+    }
+
+    public function setRemaining(int $remainingMovies)
+    {
+        $this->remaining = $remainingMovies;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRemaining(): int
+    {
+        return $this->remaining;
     }
 
 }
