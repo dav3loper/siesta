@@ -13,9 +13,10 @@ class VoteListDecorator
         '21' => 'D',
         '11' => 'U',
         '41' => 'L',
+        '51' => 'E',
         '31' => 'M',
     ];
-    private const VOTES_ORDER = ['D', 'd', 'S', 's', 'U', 'u', 'L', 'l', 'M', 'm'];
+    private const VOTES_ORDER = ['D', 'd', 'S', 's', 'U', 'u', 'L', 'l', 'M', 'm', 'E', 'e'];
 
     /** @var Movie[] */
     private $_movieList;
