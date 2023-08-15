@@ -1,5 +1,5 @@
 {
-  "name": "siesta",
+  "name":"siesta/siesta",
   "description": "Sistema Inteligente para Elegir en Sitges Todo lo Acordado",
   "type": "project",
   "require": {
