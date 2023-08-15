@@ -17,5 +17,4 @@ RUN a2enmod rewrite
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
 WORKDIR /var/www
-CMD ["apache2ctl", "-D", "FOREGROUND"]
-
+EXPOSE 8080
