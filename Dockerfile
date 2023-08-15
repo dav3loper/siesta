@@ -19,8 +19,6 @@ RUN docker-php-ext-install \
        zip \
        pdo_mysql
 RUN a2enmod rewrite
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- --install-dir=/usr/bin/ --filename=composer
 EXPOSE 8080
 WORKDIR /var/www/html
 COPY . ./
