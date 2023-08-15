@@ -1,4 +1,4 @@
-FROM composer as builder
+FROM composer:1.9.0 as builder
 WORKDIR /app/
 COPY composer.* ./
 RUN composer install
