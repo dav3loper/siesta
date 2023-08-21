@@ -8,7 +8,13 @@ RUN apt-get update \
     && apt-get install -y \
        libzip-dev \
        unzip \
-       zip
+       zip \
+       libpng-dev \
+       libonig-dev \
+       libxml2-dev \
+       zlib1g-dev \
+       libpq-dev \
+       libzip-dev
 RUN pecl install xdebug; \
     docker-php-ext-enable xdebug; \
     echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
@@ -16,8 +22,9 @@ RUN pecl install xdebug; \
     echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini;
 RUN docker-php-ext-install \
-       zip \
-       pdo_mysql
+       zip 
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+  && docker-php-ext-install pdo pdo_pgsql pgsql zip bcmath gd
 RUN a2enmod rewrite
 EXPOSE 8080
 WORKDIR /var/www/html
