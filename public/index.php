@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *

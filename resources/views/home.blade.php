@@ -17,7 +17,7 @@
             @endif
                     <div class="col-md-6">
                         <div class="card mb-6 shadow-sm">
-                            <img src="{{ asset('/img/'.$filmFestival->getEdition().'.jpg') }}" alt="Sitges {{ $filmFestival->getEdition() }}" class="img-thumbnail">
+                            <img src="{{ secure_asset('/img/'.$filmFestival->getEdition().'.jpg') }}" alt="Sitges {{ $filmFestival->getEdition() }}" class="img-thumbnail">
                             <div class="card-body">
                                 <p class="card-text"><strong>{{ $filmFestival->getEdition() }}</strong></p>
                                 <p class="card-text">{{$filmFestival->getName()}}</p>

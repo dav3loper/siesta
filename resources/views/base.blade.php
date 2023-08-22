@@ -10,8 +10,8 @@
 
     {{-- End Meta data --}}
     @section('styles')
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+        <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ secure_asset('css/custom.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @show
 </head>
@@ -23,8 +23,8 @@
 </div>
 
 @section('footer-scripts')
-    <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/custom.js')}}"></script>
+    <script type="text/javascript" src="{{ secure_asset('js/app.js')}}"></script>
+    <script type="text/javascript" src="{{ secure_asset('js/custom.js')}}"></script>
 @show
 </body>
 </html>
