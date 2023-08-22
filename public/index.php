@@ -57,7 +57,6 @@ echo "vamos a ver si tira el handle\n";
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
-print_r($response);exit;
 
 $response->send();
 
