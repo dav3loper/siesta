@@ -49,6 +49,12 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 |
 */
 
+Log::info('This is some useful information.');
+ 
+Log::warning('Something could be going wrong.');
+ 
+Log::error('Something is really going wrong.');
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
