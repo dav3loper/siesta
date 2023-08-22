@@ -14,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+      /* Use https links instead http links */
+      if (Request::server('HTTP_X_FORWARDED_PROTO') == 'https')
+      {
+         URL::forceScheme('https');
+      }
     }
 
     /**
