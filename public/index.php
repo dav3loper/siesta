@@ -50,10 +50,8 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 |
 */
 
-echo "primera linea del publi\n";
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-echo "vamos a ver si tira el handle\n";
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
