@@ -1,5 +1,7 @@
 <?php
 
+use Log;
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
