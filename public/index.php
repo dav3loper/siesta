@@ -50,17 +50,14 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 |
 */
 
-Log::info('This is some useful information.');
-
-Log::warning('Something could be going wrong.');
-
-Log::error('Something is really going wrong.');
-
+echo "primera linea del publi\n";
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
+echo "vamos a ver si tira el handle\n";
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+print_r($response);exit;
 
 $response->send();
 
