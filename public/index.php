@@ -1,7 +1,6 @@
 <?php
 
-use Log;
-
+use Illuminate\Support\Facades\Log;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -52,9 +51,9 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 */
 
 Log::info('This is some useful information.');
- 
+
 Log::warning('Something could be going wrong.');
- 
+
 Log::error('Something is really going wrong.');
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
