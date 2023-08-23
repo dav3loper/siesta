@@ -13,7 +13,7 @@ RUN apt-get update \
        libonig-dev \
        libxml2-dev \
        zlib1g-dev \
-       libpq=14 \
+       libpq-dev=14 \
        libzip-dev
 RUN pecl install xdebug; \
     docker-php-ext-enable xdebug; \
