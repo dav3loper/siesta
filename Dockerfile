@@ -13,7 +13,7 @@ RUN apt-get update \
        libonig-dev \
        libxml2-dev \
        zlib1g-dev \
-       libpq5=13.4-1 \
+       libpq5=14 \
        libpq-dev \
        libzip-dev
 RUN pecl install xdebug; \
