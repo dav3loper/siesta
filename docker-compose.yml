@@ -3,6 +3,7 @@ services:
    php:
       build:
         context: .
+        dockerfile: Dockerfile-dev
       working_dir: /var/www
       container_name: apache_siesta
       volumes:
