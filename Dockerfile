@@ -3,7 +3,7 @@ WORKDIR /app/
 COPY composer.* ./
 RUN composer install
 
-FROM php:7.4-apache
+FROM php:7.4.33-apache
 RUN apt-get update \
     && apt-get install -y \
        libzip-dev \
