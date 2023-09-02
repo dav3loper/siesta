@@ -3,7 +3,7 @@ WORKDIR /app/
 COPY composer.* ./
 RUN composer install
 
-FROM php:8.1-apache
+FROM php:7.4-apache
 RUN apt-get update \
     && apt-get install -y \
        libzip-dev \
@@ -14,7 +14,7 @@ RUN apt-get update \
        libxml2-dev \
        zlib1g-dev \
        libpq-dev \
-       libzip-dev 
+       libzip-dev
 RUN pecl install xdebug; \
     docker-php-ext-enable xdebug; \
     echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
@@ -22,7 +22,7 @@ RUN pecl install xdebug; \
     echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini;
 RUN docker-php-ext-install \
-       zip 
+       zip
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
   && docker-php-ext-install pdo pdo_pgsql pgsql zip bcmath gd
 RUN a2enmod rewrite
