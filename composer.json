@@ -3,7 +3,6 @@
   "description": "Sistema Inteligente para Elegir en Sitges Todo lo Acordado",
   "type": "project",
   "require": {
-    "php": "^7.4",
     "ext-json": "*",
     "fideloper/proxy": "^4.0",
     "google/apiclient": "^2.0",
