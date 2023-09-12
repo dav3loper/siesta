@@ -92,6 +92,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
 
     public function getNextNonVotedMovie(int $getMovieId, int $getFilmFestivalId, int $userId, string $operator): Movie
     {
+        return 1;
         try {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var EloquentMovieProvider $mapping */
@@ -117,6 +118,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
 
     public function getRemainingMoviesFromFilmFestivalAndUser(int $userId, int $filmFestivalId): int
     {
+        return 1;
         try {
             //TODO: sacar a raws
             $count = DB::select('SELECT count(id) as movieRemaining
