@@ -82,7 +82,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
         try {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var EloquentMovieProvider $mapping */
-            $mapping = self::where(self::FILM_FESTIVAL_ID, '=', $festivalId)->sortBy('id')->firstOrFail();
+            $mapping = self::where(self::FILM_FESTIVAL_ID, '=', $festivalId)->orderBy('id', 'asc')->firstOrFail();
 
             return $this->_getMovieFromMapping($mapping->getAttributes());
         } catch (ModelNotFoundException $e) {
@@ -92,19 +92,19 @@ class EloquentMovieProvider extends Model implements MovieProvider
 
     public function getNextNonVotedMovie(int $getMovieId, int $getFilmFestivalId, int $userId, string $operator): Movie
     {
-        return 1;
         try {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var EloquentMovieProvider $mapping */
-            //TODO: sacar a raws
-            $mappingList = DB::select('SELECT *
-                                      FROM movie m
-                                      where m.film_festival_id = '.$getFilmFestivalId.' and m.id '.$operator.' '.$getMovieId.' and m.id NOT IN (
-	                                  select v.movie_id from user_vote v
-                                      where v.user_id = '.$userId.')
-                                      order by m.id asc
-                                      limit 1;');
-            $mapping = current($mappingList);
+
+
+            $mapping = DB::table('movie')
+                ->where(self::FILM_FESTIVAL_ID, '=', $getFilmFestivalId)
+                ->where('id', $operator, $getMovieId)
+                ->whereNotIn('id', function($query) use ($userId){
+                    $query->select('movie_id')->from('user_vote')->where('user_id', '=', $userId)
+                        ->orderBy('id', 'asc');
+                })
+                ->first();
             if(empty($mapping)){
                 throw new MovieNotFoundException();
             }
@@ -118,15 +118,14 @@ class EloquentMovieProvider extends Model implements MovieProvider
 
     public function getRemainingMoviesFromFilmFestivalAndUser(int $userId, int $filmFestivalId): int
     {
-        return 1;
         try {
-            //TODO: sacar a raws
-            $count = DB::select('SELECT count(id) as movieRemaining
-                                      FROM movie m
-                                      where m.film_festival_id = '.$filmFestivalId.' and m.id NOT IN (
-	                                  select v.movie_id from user_vote v
-                                      where v.user_id = '.$userId.')');
-            return current($count)->movieRemaining;
+            $remaining = DB::table('movie')
+                ->where('film_festival_id', '=', $filmFestivalId)
+                ->whereNotIn('id', function($query) use ($userId){
+                    $query->select('movie_id')->from('user_vote')->where('user_id', '=', $userId);
+                })
+                ->count();
+            return $remaining;
         } catch (ModelNotFoundException $e) {
             return 0;
         }
