@@ -82,7 +82,7 @@ class EloquentMovieProvider extends Model implements MovieProvider
         try {
             /** @noinspection PhpUndefinedMethodInspection */
             /** @var EloquentMovieProvider $mapping */
-            $mapping = self::where(self::FILM_FESTIVAL_ID, '=', $festivalId)->firstOrFail();
+            $mapping = self::where(self::FILM_FESTIVAL_ID, '=', $festivalId)->sortBy('id')->firstOrFail();
 
             return $this->_getMovieFromMapping($mapping->getAttributes());
         } catch (ModelNotFoundException $e) {
