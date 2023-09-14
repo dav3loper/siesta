@@ -5,26 +5,14 @@ RUN composer install
 
 FROM php:7.4.33-apache
 RUN apt-get update \
-    && apt-get install -y \
-       libzip-dev \
-       unzip \
-       zip \
+    && apt-get install -y
        libpng-dev \
        libonig-dev \
        libxml2-dev \
        zlib1g-dev \
-       libpq-dev \
-       libzip-dev
-RUN pecl install xdebug; \
-    docker-php-ext-enable xdebug; \
-    echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-    echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-    echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
-    echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini;
-RUN docker-php-ext-install \
-       zip
+       libpq-dev
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-  && docker-php-ext-install pdo pdo_pgsql pgsql zip bcmath gd
+  && docker-php-ext-install pdo pdo_pgsql pgsql bcmath
 RUN a2enmod rewrite
 EXPOSE 8080
 WORKDIR /var/www/html
