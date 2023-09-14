@@ -88,7 +88,19 @@ class MovieController extends SiestaController
             $handler = app()->make(VoteMovieHandler::class);
             $handler->execute($command);
 
-            return redirect('movie/next/' . $id);
+
+            $command = new GetNextMovieToVoteCommand(
+                $id,
+                Auth::user()->id
+            );
+            /** @var GetNextMovieToVoteHandler $handler */
+            $handler = app()->make(GetNextMovieToVoteHandler::class);
+            $movie = $handler->execute($command);
+            if($movie === null){
+                return view('movies.congrats');
+
+            }
+            return redirect('movie/' . $movie->getId());
         }
     }
 
