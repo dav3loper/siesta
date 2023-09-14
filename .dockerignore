@@ -1,0 +1,8 @@
+# Exclude locally vendored dependencies.
+vendor/
+
+# Exclude "build-time" ignore files.
+.dockerignore
+
+# Exclude git history and configuration.
+.gitignore
