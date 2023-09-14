@@ -5,12 +5,13 @@ RUN composer install
 
 FROM php:7.4.33-apache
 RUN apt-get update \
-    && apt-get install -y
+    && apt-get install -y \
        libpng-dev \
        libonig-dev \
        libxml2-dev \
        zlib1g-dev \
-       libpq-dev
+       libpq-dev \
+       libzip-dev
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
   && docker-php-ext-install pdo pdo_pgsql pgsql bcmath
 RUN a2enmod rewrite
