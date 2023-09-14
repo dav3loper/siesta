@@ -22,6 +22,8 @@ COPY --from=builder /app/vendor /var/www/html/vendor
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 RUN mkdir -p /var/www/html/bootstrap/cache \
+    && echo "Listen 8080" >> /etc/apache2/ports.conf \
     &&  chown -R www-data:www-data /var/www/html/bootstrap \
     && mkdir -p /var/www/html/storage/framework/sessions \
     && chown -R www-data:www-data /var/www/html/storage
+CMD ["apache2-foreground"]
